@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Sections</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            white-space: pre-wrap;
+            margin-top: 10px;
+        }
+        code {
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Expandable Code Sections</h1>
+
+    <!-- Temperature Analysis Section -->
+    <div class="section">
+        <div class="header" onclick="toggleContent('content1')">Hadoop Temperature Analysis Code</div>
+        <div class="content" id="content1">
+            <code>
+package temp2;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.FloatWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+import java.io.IOException;
+public class temp2 {
+    public static class TemperatureMapper extends Mapper&lt;LongWritable, Text, Text, FloatWritable&gt; {
+        private Text year = new Text();
+        private FloatWritable temperature = new FloatWritable();
+        
+        @Override
+        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+            String line = value.toString();
+            String[] fields = line.split(",");
+            if (fields.length < 4 || fields[0].trim().equals("Year")) {
+                return;
+            }
+            year.set(fields[0].trim());
+            String tempStr = fields[3].trim();
+            if (!tempStr.isEmpty()) {
+                try {
+                    temperature.set(Float.parseFloat(tempStr));
+                    context.write(year, temperature);
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing temperature: " + tempStr);
+                }
+            }
+        }
+    }
+    public static class TemperatureReducer extends Reducer&lt;Text, FloatWritable, Text, FloatWritable&gt; {
+        @Override
+        protected void reduce(Text key, Iterable&lt;FloatWritable&gt; values, Context context) throws IOException, InterruptedException {
+            float maxTemperature = Float.MIN_VALUE;
+            for (FloatWritable value : values) {
+                maxTemperature = Math.max(maxTemperature, value.get());
+            }
+            context.write(key, new FloatWritable(maxTemperature));
+        }
+    }
+    public static void main(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.err.println("Usage: TempAnalysis &lt;input path&gt; &lt;output path&gt;");
+            System.exit(-1);
+        }
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "Temperature Analysis");
+        job.setJarByClass(temp2.class);
+        job.setMapperClass(TemperatureMapper.class);
+        job.setReducerClass(TemperatureReducer.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(FloatWritable.class);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+            </code>
+        </div>
+    </div>
+
+    <!-- Stock Analysis Section -->
+    <div class="section">
+        <div class="header" onclick="toggleContent('content2')">Hadoop Stock Analysis Code</div>
+        <div class="content" id="content2">
+            <code>
+package StockAnalysis1;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.FloatWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import java.io.IOException;
+
+public class StockAnalysis {
+    public static class StockMapper extends Mapper&lt;LongWritable, Text, Text, FloatWritable&gt; {
+        private Text stockSymbol = new Text();
+        private FloatWritable closePrice = new FloatWritable();
+
+        @Override
+        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+            String line = value.toString().trim();
+            if (line.isEmpty()) return;
+            String[] fields = line.split(",|\\s+|\\t");
+            if (fields.length < 2) return;
+
+            try {
+                String stock = fields[1];
+                float close = Float.parseFloat(fields[fields.length - 1]);
+                stockSymbol.set(stock);
+                closePrice.set(close);
+                context.write(stockSymbol, closePrice);
+            } catch (NumberFormatException e) {}
+        }
+    }
+
+    public static class StockReducer extends Reducer&lt;Text, FloatWritable, Text, FloatWritable&gt; {
+        @Override
+        protected void reduce(Text key, Iterable&lt;FloatWritable&gt; values, Context context) throws IOException, InterruptedException {
+            float sum = 0;
+            int count = 0;
+            for (FloatWritable value : values) {
+                sum += value.get();
+                count++;
+            }
+            if (count > 0) {
+                context.write(key, new FloatWritable(sum / count));
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.err.println("Usage: StockAnalysis &lt;input path&gt; &lt;output path&gt;");
+            System.exit(-1);
+        }
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "Stock Analysis");
+        job.setJarByClass(StockAnalysis.class);
+        job.setMapperClass(StockMapper.class);
+        job.setReducerClass(StockReducer.class);
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(FloatWritable.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(FloatWritable.class);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+            </code>
+        </div>
+    </div>
+
+    <!-- Word Count Section -->
+    <div class="section">
+        <div class="header" onclick="toggleContent('content3')">Hadoop Word Count Code</div>
+        <div class="content" id="content3">
+            <code>
+import java.io.IOException;
+import java.util.StringTokenizer;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class WordCount {
+    public static class TokenizerMapper extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
+        private final static IntWritable one = new IntWritable(1);
+        private Text word = new Text();
+
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+            StringTokenizer itr = new StringTokenizer(value.toString());
+            while (itr.hasMoreTokens()) {
+                word.set(itr.nextToken());
+                context.write(word, one);
+            }
+        }
+    }
+
+    public static class IntSumReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+        private IntWritable result = new IntWritable();
+
+        public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+            for (IntWritable val : values) {
+                sum += val.get();
+            }
+            result.set(sum);
+            context.write(key, result);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "word count");
+        job.setJarByClass(WordCount.class);
+        job.setMapperClass(TokenizerMapper.class);
+        job.setCombinerClass(IntSumReducer.class);
+        job.setReducerClass(IntSumReducer.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+            </code>
+        </div>
+    </div>
+
+    <!-- Log Analysis Section -->
+    <div class="section">
+        <div class="header" onclick="toggleContent('content4')">Hadoop Log Analysis Code</div>
+        <div class="content" id="content4">
+            <code>
+package Mapreduce;
+import java.io.IOException;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+
+public class Mapreduce {
+    public static class LogMapper extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt; {
+        private final static IntWritable one = new IntWritable(1);
+        private Text ipAddress = new Text();
+
+        public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+            String[] parts = value.toString().split(" ");
+            if (parts.length >= 1) {
+                ipAddress.set(parts[0]);
+                context.write(ipAddress, one);
+            }
+        }
+    }
+
+    public static class LogReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+        private IntWritable result = new IntWritable();
+
+        public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+            for (IntWritable val : values) {
+                sum += val.get();
+            }
+            result.set(sum);
+            context.write(key, result);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "log analysis");
+        job.setJarByClass(Mapreduce.class);
+        job.setMapperClass(LogMapper.class);
+        job.setCombinerClass(LogReducer.class);
+        job.setReducerClass(LogReducer.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        job.setInputFormatClass(TextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+            </code>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleContent(id) {
+    var content = document.getElementById(id);
+    if (content.style.display === "block") {
+        content.style.display = "none";
+    } else {
+        content.style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>
