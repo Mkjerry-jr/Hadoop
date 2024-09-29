@@ -119,6 +119,107 @@ public class temp2 {
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
+
+                PART - 1
+                package maxtemp;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class maxtempdriver {
+
+	public static void main(String[] args) throws Exception {
+		Configuration conf = new Configuration();
+		Job job = Job.getInstance(conf, "MaxTemperature");
+		job.setJarByClass(maxtemp.maxtempdriver.class);
+		// TODO: specify a mapper
+		job.setMapperClass(maxtemperature.class);
+		// TODO: specify a reducer
+		job.setReducerClass(maxtempreduce.class);
+
+		// TODO: specify output types
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
+
+		// TODO: specify input and output DIRECTORIES (not files)
+		FileInputFormat.setInputPaths(job, new Path(args[1]));
+		FileOutputFormat.setOutputPath(job, new Path(args[2]));
+
+		if (!job.waitForCompletion(true))
+			return;
+	}
+
+}
+                
+PART - 2
+
+package maxtemp;
+import java.io.IOException;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Mapper;
+public class maxtemperature extends Mapper<LongWritable, Text, Text, IntWritable > {
+
+	public void map(LongWritable key, Text value, Context context)
+			throws IOException, InterruptedException {
+ String line=value.toString();
+ String year=line.substring(15,19);
+ int airtemp;
+ if(line.charAt(87)== '+')
+ {
+	 airtemp=Integer.parseInt(line.substring(88,92));
+	 
+ }
+ else
+		 airtemp=Integer.parseInt(line.substring(87,92));
+		 String q=line.substring(92,93);
+		 if(airtemp!=9999&&q.matches("[01459]"))
+		 {
+			 context.write(new Text(year),new IntWritable(airtemp));
+			 
+		 }
+	 }
+	 
+ }
+ 
+PART - 3
+    
+package maxtemp;
+
+import java.io.IOException;
+
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Reducer;
+
+import sun.awt.SunHints.Value;
+public class maxtempreduce extends Reducer<Text, IntWritable, Text, IntWritable> {
+public void reduce(Text key, Iterable<IntWritable> values, Context context)
+			throws IOException, InterruptedException {
+		int maxvalue=Integer.MIN_VALUE;
+		for (IntWritable value : values) {
+maxvalue=Math.max(maxvalue, value.get());
+		}
+		context.write(key, new IntWritable(maxvalue));
+	}
+
+}
+    
+OUTPUT
+    
+0067011990999991950051507004+68750+023550FM-12+038299999V0203301N00671220001CN9999999N9+00001+99999999999
+0043011990999991950051512004+68750+023550FM-12+038299999V0203201N00671220001CN9999999N9+00221+99999999999
+0043011990999991950051518004+68750+023550FM-12+038299999V0203201N00261220001CN9999999N9-00111+99999999999
+0043012650999991949032412004+62300+010750FM-12+048599999V0202701N00461220001CN0500001N9+01111+99999999999
+0043012650999991949032418004+62300+010750FM-12+048599999V0202701N00461220001CN0500001N9+00781+99999999999
             </code>
         </div>
     </div>
@@ -197,11 +298,6 @@ public class StockAnalysis {
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
-0067011990999991950051507004+68750+023550FM-12+038299999V0203301N00671220001CN9999999N9+00001+99999999999
-0043011990999991950051512004+68750+023550FM-12+038299999V0203201N00671220001CN9999999N9+00221+99999999999
-0043011990999991950051518004+68750+023550FM-12+038299999V0203201N00261220001CN9999999N9-00111+99999999999
-0043012650999991949032412004+62300+010750FM-12+048599999V0202701N00461220001CN0500001N9+01111+99999999999
-0043012650999991949032418004+62300+010750FM-12+048599999V0202701N00461220001CN0500001N9+00781+99999999999
             </code>
         </div>
     </div>
