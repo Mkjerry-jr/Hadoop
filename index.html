@@ -337,22 +337,42 @@ public class Mapreduce {
     }
 }
 
-IP Address                    Timestamp of request                 HTTP request             Status Code   Size in Bytes
-96.7.8.17                     [24/Apr/2011:04:20:11 -0400]     "GET /cat.jpg HTTP/1.1"    200          12433 
-96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"   200          12433 
-96.7.2.14                     [24/Apr/2011:04:20:11 -0400]     "GET /cat.jpg HTTP/1.1"   200           12433 
-192.168.1.1                [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"   200          12433 
-96.7.4.16                    [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"   200          12433 
-91.75.5.14                  [24/Apr/2011:04:20:11 -0400]     "GET /cat.jpg HTTP/1.1"   200           12433 
-98.21.6.14                  [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"  200           12433 
-162.15.16.1               [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"   200          12433 
-8.8.8.8                        [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"   200          12433 
-10.99.99.247             [24/Apr/2011:04:20:11 -0400]     "GET /cat.jpg HTTP/1.1"   200          12433 
-96.7.1.14                   [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"   200         12433 
-96.7.1.14                   [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"   200         12433		    
+IP Address                    Timestamp of request                 HTTP request            Status Code   Size in Bytes
+96.7.8.17                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+96.7.2.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+192.168.1.1                   [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+96.7.4.16                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+91.75.5.14                    [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+98.21.6.14                    [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+162.15.16.1                   [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+8.8.8.8                       [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+10.99.99.247                  [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
+96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433		    
             </code>
         </div>
     </div>
+        <!-- Log Analysis Section -->
+    <div class="section">
+        <div class="header" onclick="toggleContent('content4')">JAR FILES GUIDE</div>
+        <div class="content" id="content4">
+            <code>  
+		    
+AFTER CODE DO THIS:
+Build Path-> Add External Archives-> File System-> Usr-> Lib-> hadoop.common.jar
+Build Path-> Add External Archives-> File System-> Usr-> Lib-> hadoop-0.20-mapreduce-> hadoop-core-2.6.0-mr1-cdh5.13.0.jar
+Build Path-> Add External Archives-> File System-> Usr-> Lib-> hadoop-> hadoop-auth.jar	
+
+This will make to remove all the red lines in the copied code, if not, copy paste the code again and check the class name and package name properly.
+
+Export the class File:
+Export-> Jar File-> "Select the path:" /home/cloudera/"your_jar_file_name".jar   ----> Finish
+		     
+            </code>
+        </div>
+    </div>
+</div> 	
 </div>
 
 <script>
