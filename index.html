@@ -129,8 +129,8 @@ Steps: //package name: temp , class name: temp
 2024 01 02 03
 2024 01 02 03	
 		    
-3)hadoop fs -put t.txt t.txt                                      //one type the same command to get file already exists as output
-4)hadoop jar temp.jar temp.temp t.txt dir09
+3)hadoop fs -put t.txt t.txt                                      //once type the same command to get file already exists as output
+4)hadoop jar temp.jar temp.temp t.txt dir09                       //Try giving different dir numbers for each programs
 5)hadoop fs -cat t.txt dir09/part-00000        		    
 
             </code>
@@ -336,7 +336,10 @@ public class Mapreduce {
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
-
+		    
+Steps: //package name: web , class name: web
+1) After Pasting this code and completing build path and Exporting Jar files respectively, do the below steps.
+2) Gedit wel.txt    //Write the Input Ip address inside it.
 IP Address                    Timestamp of request                 HTTP request            Status Code   Size in Bytes
 96.7.8.17                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
 96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
@@ -349,7 +352,11 @@ IP Address                    Timestamp of request                 HTTP request 
 8.8.8.8                       [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
 10.99.99.247                  [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
 96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
-96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433		    
+96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433
+		    
+3)hadoop fs -put wel.txt wel.txt                                      //once type the same command to get file already exists as output
+4)hadoop jar web.jar web.web wel.txt dir11                            //Try giving different dir numbers for each programs 
+5)hadoop fs -cat dir11/part-00000    	                             //Make sure u give the same dir number wt u gave in above command.	    
             </code>
         </div>
     </div>
