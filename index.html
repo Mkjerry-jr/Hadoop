@@ -219,174 +219,102 @@ Dummy Data:
 2024-01-02     GOOG        1460.00      1480.00     1450.00         1470.00    1100000 
 
 
-package YoutubeAnalysis;
-
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-
-import java.io.IOException;
-
-public class YoutubeAnalysis {
-
-    public static class YoutubeMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
-        private Text channelName = new Text();
-        private LongWritable views = new LongWritable();
-
-        @Override
-        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            String line = value.toString().trim();
-            if (line.isEmpty() || line.startsWith("Date")) return;  // Skip empty lines and header
-
-            String[] fields = line.split(",\\s*"); // Split by comma and optional whitespace
-            if (fields.length < 5) return; // Ensure there are enough fields
-
-            try {
-                String channel = fields[1]; // Channel Name is the second column
-                long viewCount = Long.parseLong(fields[3]); // Views is the fourth column
-                channelName.set(channel);
-                views.set(viewCount);
-                context.write(channelName, views);
-            } catch (NumberFormatException e) {
-                // Handle possible format issues
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static class YoutubeReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
-        @Override
-        protected void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
-            long sum = 0;
-            for (LongWritable value : values) {
-                sum += value.get();
-            }
-            context.write(key, new LongWritable(sum));
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
-            System.err.println("Usage: YoutubeAnalysis <input path> <output path>");
-            System.exit(-1);
-        }
-
-        Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "YouTube Channel View Analysis");
-        job.setJarByClass(YoutubeAnalysis.class);
-        job.setMapperClass(YoutubeMapper.class);
-        job.setReducerClass(YoutubeReducer.class);
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(LongWritable.class);
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(LongWritable.class);
-        
-        FileInputFormat.addInputPath(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
-
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
-    }
-}
 
 		    
 Real-Time Data:
-Date,         Channel Name,    Video Title,              Views,Total Subscribers
-2024-10-07,   Tech Guru,       New Tech Overview,        80000,1520000
-2024-10-07,   Music Beats,     Latest Pop Song,          155000,2550000
-2024-10-07,   Fitness Pro,     10 Min Abs Workout,        85000,820000
-2024-10-07,   Game Masters,    Game Walkthrough,          90000,1010000
-2024-10-07,   Tech Guru,       Smartphone Review,         75000,1530000
-2024-10-07,   Music Beats,     Indie Music Mix,          160000,2600000
-2024-10-07,   Fitness Pro,     20 Min Full Body Workout,  92000,830000
-2024-10-07,   Game Masters,    Live Stream Replay,       120000,1030000
-2024-10-07,   Tech Guru,       Laptop Review,            100000,1540000
-2024-10-07,   Music Beats,     Hip Hop Top Tracks,       170000,2660000
-2024-10-07,   Fitness Pro,     Morning Yoga Routine,     95000,840000
-2024-10-07,   Game Masters,    Speedrun Challenge,       140000,1050000
-2024-10-07,   Tech Guru,       AI Tech Demo,             115000,1560000
-2024-10-07,   Music Beats,     EDM Party Mix,            180000,2700000
-2024-10-07,   Fitness Pro,     Cardio Blast,             100000,850000
-2024-10-07,   Game Masters,    Top 10 Game Strategies,   150000,1080000
-2024-10-07,   Tech Guru,       Gadget Unboxing,          125000,1570000
-2024-10-07,   Music Beats,     Acoustic Live Session,    145000,2750000
-2024-10-07,   Fitness Pro,     HIIT Workout,             110000,860000
-2024-10-07,   Game Masters,    Multiplayer Tips,         135000,1090000
-2024-10-07,   Tech Guru,       Drone Test Flight,        105000,1580000
-2024-10-07,   Music Beats,     Classical Music Mix,      165000,2800000
-2024-10-07,   Fitness Pro,     Strength Training,        120000,870000
-2024-10-07,   Game Masters,    Battle Royale Strategy,   130000,1100000
-2024-10-07,   Tech Guru,       VR Headset Review,        110000,1590000
-2024-10-07,   Music Beats,     Chill Vibes Playlist,     150000,2850000
-2024-10-07,   Fitness Pro,     Flexibility Routine,      105000,880000
-2024-10-07,   Game Masters,    RPG Game Secrets,         145000,1110000
-2024-10-07,   Tech Guru,       Electric Car Review,      120000,1600000
-2024-10-07,   Music Beats,     Jazz Improvisation,       175000,2900000
-2024-10-07,   Fitness Pro,     Strength and Conditioning,130000,890000
-2024-10-07,   Game Masters,    Adventure Game Tips,      140000,1120000
-2024-10-07,   Tech Guru,       Camera Test Review,       125000,1610000
-2024-10-07,   Music Beats,     Live Piano Concert,       165000,2950000
-2024-10-07,   Fitness Pro,     CrossFit Challenge,       100000,900000
-2024-10-07,   Game Masters,    Survival Game Guide,      115000,1130000
-2024-10-07,   Tech Guru,       Smartwatch Review,        105000,1620000
-2024-10-07,   Music Beats,     Synthwave Mix,            140000,3000000
-2024-10-07,   Fitness Pro,     Pilates for Beginners,     95000,910000
-2024-10-07,   Game Masters,    MMORPG Tutorial,          120000,1140000
-2024-10-07,   Tech Guru,       Home Automation Setup,    130000,1630000
-2024-10-07,   Music Beats,     Top Rock Songs,           175000,3050000
-2024-10-07,   Fitness Pro,     Strength Circuit,          85000,920000
-2024-10-07,   Game Masters,    Indie Game Preview,        95000,1150000
-2024-10-07,   Tech Guru,       Best Gaming Laptop,       145000,1640000
-2024-10-07,   Music Beats,     Classical Symphony,       185000,3100000
-2024-10-07,   Fitness Pro,     Yoga for Flexibility,     110000,930000
-2024-10-07,   Game Masters,    Action RPG Guide,         155000,1160000
-2024-10-07,   Tech Guru,       Tablet Review,            120000,1650000
-2024-10-07,   Music Beats,     R&B Hits Playlist,        145000,3150000
-2024-10-07,   Fitness Pro,     Quick Morning Routine,     85000,940000
-2024-10-07,   Game Masters,    Puzzle Game Tips,         135000,1170000
-2024-10-07,   Tech Guru,       Best Smartphones 2024,    110000,1660000
-2024-10-07,   Music Beats,     Country Music Live,       160000,3200000
-2024-10-07,   Fitness Pro,     Daily Stretches,           90000,950000
-2024-10-07,   Game Masters,    Stealth Game Playthrough, 125000,1180000
-2024-10-07,   Tech Guru,       Electric Bike Review,     115000,1670000
-2024-10-07,   Music Beats,     Top EDM Hits,             140000,3250000
-2024-10-07,   Fitness Pro,     Post-Workout Recovery,     80000,960000
-2024-10-07,   Game Masters,    Horror Game Walkthrough,  120000,1190000
-2024-10-07,   Tech Guru,       Best Budget Laptop,       105000,1680000
-2024-10-07,   Music Beats,     Folk Music Mix,           135000,3300000
-2024-10-07,   Fitness Pro,     Cardio Kickboxing,         85000,970000
-2024-10-07,   Game Masters,    Open World Game Tips,     130000,1200000
-2024-10-07,   Tech Guru,       4K TV Review,             140000,1690000
-2024-10-07,   Music Beats,     Jazz Night Live,          160000,3350000
-2024-10-07,   Fitness Pro,     Bodyweight Workout,        95000,980000
-2024-10-07,   Game Masters,    Strategy Game Tactics,    115000,1210000
-2024-10-07,   Tech Guru,       Wireless Headphones Review,125000,1700000
-2024-10-07,   Music Beats,     Top Indie Artists,        155000,3400000
-2024-10-07,   Fitness Pro,     Strength Training at Home,100000,990000
-2024-10-07,   Game Masters,    First-Person Shooter Guide,145000,1220000
-2024-10-07,   Tech Guru,       Best Fitness Trackers,    105000,1710000
-2024-10-07,   Music Beats,     Live DJ Set,              170000,3450000
-2024-10-07,   Fitness Pro,     Yoga for Athletes,         95000,1000000
-2024-10-07,   Game Masters,    Turn-Based Strategy Guide,110000,1230000
-2024-10-07,   Tech Guru,       Smart Home Devices Review,130000,1720000
-2024-10-07,   Music Beats,     Electronic Chillout Mix,  145000,3500000
-2024-10-07,   Fitness Pro,     Full-Body Stretch Routine, 90000,1010000
-2024-10-07,   Game Masters,    Sandbox Game Exploration, 115000,1240000
-2024-10-07,   Tech Guru,       Noise-Canceling Earbuds, 135000,1730000
-2024-10-07,   Music Beats,     Pop Rock Essentials,    175000,3550000
-2024-10-07,   Fitness Pro,     Mindfulness Meditation, 100000,1020000
-2024-10-07,   Game Masters,    Co-op Game Review,      140000,1250000
-2024-10-07,   Tech Guru,       VR Gaming Headset,      145000,1740000
-2024-10-07,   Music Beats,     Acoustic Guitar Favorites,165000,3600000
-2024-10-07,   Fitness Pro,     Evening Yoga Routine,    90000,1030000
-2024-10-07,   Game Masters,    Platformer Game Tips,   135000,1260000
-2024-10-07,   Tech Guru,       Best Smartwatches,      120000,1750000
-2024-10-07,   Music Beats,     Soul Music Collection,  150000,3650000
+Date        Channel_Name           Video_Title                         Duration  Category        Likes     Comments    Views      
+2024-10-03  Tech_Insider           New_Tech_Overview                   12:45     Technology      2500      350         95342      
+2024-10-02  Music_Blast            Latest_Pop_Song                     3:42      Music           7200      865         164218     
+2024-10-03  Fit_Freaks             10_Min_Abs_Workout                  10:12     Fitness         3400      225         81234      
+2024-10-04  GameZone               Game_Walkthrough                    18:34     Gaming          4800      645         110458     
+2024-10-03  Tech_Insider           Smartphone_Review                   9:56      Technology      1980      305         84219      
+2024-10-05  Indie_Jam              Indie_Music_Mix                     45:12     Music           6500      1023        132987     
+2024-10-04  Fit_Freaks             20_Min_Full_Body_Workout            20:10     Fitness         3900      412         95813      
+2024-10-02  GameZone               Live_Stream_Replay                  2:03:15   Gaming          7400      540         104781     
+2024-10-04  Gadget_Guide           Laptop_Review                       11:25     Technology      3100      378         92387      
+2024-10-05  Music_Mania            Hip_Hop_Top_Tracks                  52:34     Music           8300      1234        178642     
+2024-10-02  Zen_Fitness            Morning_Yoga_Routine                25:03     Fitness         3700      290         99045      
+2024-10-03  Speedrun_Kings         Speedrun_Challenge                  19:15     Gaming          5600      612         137421     
+2024-10-05  Future_Gadgets         AI_Tech_Demo                        16:23     Technology      5200      403         124901     
+2024-10-03  Music_Mania            EDM_Party_Mix                       58:27     Music           9100      1352        182376     
+2024-10-04  Fit_Freaks             Cardio_Blast                        14:22     Fitness         4300      367         104958     
+2024-10-03  GameZone               Top_10_Game_Strategies              15:45     Gaming          6200      588         148214     
+2024-10-04  Unbox_Universe         Gadget_Unboxing                     8:12      Technology      5100      372         116543     
+2024-10-06  Music_Blast            Acoustic_Live_Session               3:05:10   Music           7100      982         139284     
+2024-10-05  Strength_Society       HIIT_Workout                        10:18     Fitness         4800      328         114732     
+2024-10-04  Pro_Gaming_Tips        Multiplayer_Tips                    22:34     Gaming          6700      721         121938     
+2024-10-05  Drone_Pilot            Drone_Test_Flight                   13:15     Technology      4300      312         109384     
+2024-10-03  Classic_Tunes          Classical_Music_Mix                 1:30:12   Music           8900      1034        171542     
+2024-10-05  Zen_Fitness            Strength_Training                   18:12     Fitness         5200      456         110842     
+2024-10-03  GameZone               Battle_Royale_Strategy              20:10     Gaming          7100      678         142354     
+2024-10-06  Gadget_Guide           VR_Headset_Review                   14:32     Technology      5900      453         125763     
+2024-10-04  Chill_Melodies         Chill_Vibes_Playlist                42:21     Music           7500      864         156298     
+2024-10-05  Flex_Workout           Flexibility_Routine                 12:15     Fitness         4100      324         104517     
+2024-10-05  RPG_Masters            RPG_Game_Secrets                    23:19     Gaming          6800      689         149286     
+2024-10-06  Auto_Reviews           Electric_Car_Review                 17:52     Technology      5800      501         135289     
+2024-10-06  Music_Blast            Synthwave_Mix                       1:15:43   Music           9200      1374        192648     
+2024-10-05  Strength_Society       Strength_and_Conditioning           22:45     Fitness         5300      467         117945     
+2024-10-07  Pro_Gaming_Tips        First-Person_Shooter_Guide          21:34     Gaming          7900      853         158432     
+2024-10-06  Drone_Pilot            Electric_Bike_Review                11:48     Technology      5400      402         125483     
+2024-10-07  Indie_Jam              Acoustic_Guitar_Favorites           55:34     Music           8000      1147        148732     
+2024-10-06  Zen_Fitness            Yoga_for_Flexibility                24:03     Fitness         4700      421         113842     
+2024-10-07  GameZone               Open_World_Game_Tips                28:45     Gaming          6100      654         130649     
+2024-10-06  Tech_Insider           Best_Smartwatches                   13:25     Technology      5600      439         118567     
+2024-10-07  Chill_Melodies         Top_Rock_Songs                      49:28     Music           9300      1304        168214     
+2024-10-07  Strength_Society       Strength_Circuit                    18:32     Fitness         4900      403         119856     
+2024-10-06  GameZone               Action_RPG_Guide                    25:10     Gaming          8200      875         142984     
+2024-10-07  Unbox_Universe         Best_Gaming_Laptop                  12:56     Technology      5900      421         138429     
+2024-10-04  Classic_Tunes          Classical_Symphony                  1:45:56   Music           9800      1203        176234     
+2024-10-06  Zen_Fitness            CrossFit_Challenge                  16:28     Fitness         5200      312         100342     
+2024-10-04  Pro_Gaming_Tips        Survival_Game_Guide                 19:43     Gaming          7300      671         126485     
+2024-10-05  Tech_Insider           Best_Budget_Laptop                  9:48      Technology      4800      334         103284     
+2024-10-06  Music_Mania            EDM_Top_Hits                        1:08:14   Music           10500     1378        158439     
+2024-10-06  Fit_Freaks             Post-Workout_Recovery               15:21     Fitness         3500      275         89435      
+2024-10-07  Indie_Jam              Folk_Music_Favorites                43:29     Music           5400      684         134672     
+2024-10-06  GameZone               Horror_Game_Walkthrough             27:14     Gaming          8700      932         145321     
+2024-10-05  Future_Gadgets         Best_Fitness_Trackers               11:23     Technology      5100      432         117583     
+2024-10-03  Music_Mania            Live_Piano_Session                  2:03:34   Music           9700      1243        162354     
+2024-10-05  Strength_Society       Yoga_for_Athletes                   14:35     Fitness         4200      302         104321     
+2024-10-07  Pro_Gaming_Tips        Puzzle_Game_Tips                    18:22     Gaming          6700      724         139472     
+2024-10-05  Unbox_Universe         Electric_Scooter_Review             13:10     Technology      5700      398         127593     
+2024-10-06  Music_Blast            Top_Indie_Artists                   58:17     Music           7600      1102        148361     
+2024-10-03  Fit_Freaks             Pilates_for_Beginners               12:03     Fitness         3900      312         97384      
+2024-10-06  Drone_Pilot            Smartwatch_Review                   14:56     Technology      4600      371         111243     
+2024-10-06  Classic_Tunes          Jazz_Night_Live                     1:43:27   Music           9400      1263        174982     
+2024-10-05  Zen_Fitness            Full_Body_Stretch                   18:45     Fitness         3500      267         100294     
+2024-10-06  GameZone               Adventure_Game_Tips                 22:03     Gaming          7500      684         135872     
+2024-10-07  Indie_Jam              Top_EDM_Tracks                      1:01:48   Music           9100      1352        169543     
+2024-10-07  Strength_Society       Mindfulness_Meditation              16:34     Fitness         3100      235         103592     
+2024-10-06  Pro_Gaming_Tips        Co-op_Game_Review                   17:34     Gaming          6700      598         138472     
+2024-10-07  Music_Mania            Top_Indie_Tracks                    56:12     Music           10600     1420        187431     
+2024-10-05  Unbox_Universe         Noise-Canceling_Headphones_Review   11:47     Technology      5500      387         122348     
+2024-10-07  Indie_Jam              Acoustic_Live_Performance           47:21     Music           7200      1092        143872     
+2024-10-04  Music_Blast            Soul_Music_Collection               1:02:10   Music           7900      1204        154923     
+2024-10-05  Flex_Workout           Bodyweight_Workout                  15:12     Fitness         4500      389         112834     
+2024-10-03  Pro_Gaming_Tips        Turn-Based_Strategy_Guide           21:03     Gaming          7100      653         125981     
+2024-10-07  Tech_Insider           Smart_Home_Devices_Review           13:45     Technology      6100      453         129432     
+2024-10-06  Music_Blast            Live_DJ_Set                         2:45:12   Music           9600      1487        178243     
+2024-10-05  Indie_Jam              Top_Rock_Anthems                    1:04:57   Music           8200      1278        167432     
+2024-10-07  Flex_Workout           Strength_Training_at_Home           16:48     Fitness         4200      365         109812     
+2024-10-05  RPG_Masters            MMORPG_Tutorial                     19:27     Gaming          7200      698         138765     
+2024-10-07  Future_Gadgets         4K_TV_Review                        14:18     Technology      6400      472         149321     
+2024-10-06  Classic_Tunes          Country_Music_Mix                   1:20:45   Music           8700      1190        174543     
+2024-10-07  Fit_Freaks             Daily_Stretch_Routine               17:23     Fitness         3200      243         100582     
+2024-10-06  Speedrun_Kings         Sandbox_Game_Exploration            24:10     Gaming          6800      625         132789     
+2024-10-05  GameZone               Stealth_Game_Playthrough            27:45     Gaming          7900      832         142973     
+2024-10-07  Gadget_Guide           Wireless_Headphones_Review          12:38     Technology      6500      482         143293     
+2024-10-06  Music_Mania            Jazz_Improvisation                  55:18     Music           9300      1357        183453     
+2024-10-03  Pro_Gaming_Tips        Strategy_Game_Tactics               21:12     Gaming          6100      545         119732     
+2024-10-07  Zen_Fitness            Evening_Yoga_Routine                23:45     Fitness         4100      392         109843     
+2024-10-05  Tech_Insider           Best_Smartphones_2024               9:34      Technology      6700      423         127893     
+2024-10-06  Flex_Workout           Quick_Morning_Routine               14:08     Fitness         4100      312         114583     
+2024-10-04  Indie_Jam              Synthwave_Retro_Mix                 1:10:45   Music           10200     1456        193456     
+2024-10-05  Future_Gadgets         Electric_Bike_Test                  12:45     Technology      5300      402         125476     
+2024-10-07  Music_Blast            Top_Country_Hits                    1:02:13   Music           8400      1275        167983     
+2024-10-06  Strength_Society       Flexibility_Circuit                 13:27     Fitness         3200      234         108295     
+2024-10-03  Drone_Pilot            Best_Drones_of_2024                 10:32     Technology      5900      453         132983     
+2024-10-07  Tech_Insider           Home_Automation_Review              12:45     Technology      7200      521         142937     
+2024-10-06  Music_Mania            Pop_Hits_Essentials                 58:10     Music           9700      1334        192364     
 
 
 3)hadoop fs -put s.txt s.txt                                     //once type the same command to get file already exists as output
