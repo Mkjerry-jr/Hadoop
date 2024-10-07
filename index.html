@@ -211,12 +211,90 @@ public class StockAnalysis {
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
+
+		    
 Dummy Data:
 2024-01-01     GOOG        1450.00      1465.00     1445.00         1460.00    1200000
 2024-01-01     AAPL        300.00       305.00      295.00          304.00     2100000
 2024-01-02     GOOG        1460.00      1480.00     1450.00         1470.00    1100000 
 
 
+package YoutubeAnalysis;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+import java.io.IOException;
+
+public class YoutubeAnalysis {
+
+    public static class YoutubeMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
+        private Text channelName = new Text();
+        private LongWritable views = new LongWritable();
+
+        @Override
+        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+            String line = value.toString().trim();
+            if (line.isEmpty() || line.startsWith("Date")) return;  // Skip empty lines and header
+
+            String[] fields = line.split(",\\s*"); // Split by comma and optional whitespace
+            if (fields.length < 5) return; // Ensure there are enough fields
+
+            try {
+                String channel = fields[1]; // Channel Name is the second column
+                long viewCount = Long.parseLong(fields[3]); // Views is the fourth column
+                channelName.set(channel);
+                views.set(viewCount);
+                context.write(channelName, views);
+            } catch (NumberFormatException e) {
+                // Handle possible format issues
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static class YoutubeReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
+        @Override
+        protected void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
+            long sum = 0;
+            for (LongWritable value : values) {
+                sum += value.get();
+            }
+            context.write(key, new LongWritable(sum));
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.err.println("Usage: YoutubeAnalysis <input path> <output path>");
+            System.exit(-1);
+        }
+
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "YouTube Channel View Analysis");
+        job.setJarByClass(YoutubeAnalysis.class);
+        job.setMapperClass(YoutubeMapper.class);
+        job.setReducerClass(YoutubeReducer.class);
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(LongWritable.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(LongWritable.class);
+        
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+
+		    
 Real-Time Data:
 Date,         Channel Name,    Video Title,              Views,Total Subscribers
 2024-10-07,   Tech Guru,       New Tech Overview,        80000,1520000
