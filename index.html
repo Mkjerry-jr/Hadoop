@@ -129,8 +129,8 @@ Steps: //package name: temp , class name: temp
 2024 01 02 03
 2024 01 02 03	
 		    
-3)hadoop fs -put t.txt t.txt                                      //once type the same command to get file already exists as output
-4)hadoop jar temp.jar temp.temp t.txt dir09                       //Try giving different dir numbers for each programs
+3)hadoop fs -put t.txt t.txt                                    //once type the same command to get file already exists as output
+4)hadoop jar temp.jar temp.temp t.txt dir09                    //Try giving different dir numbers for each programs
 5)hadoop fs -cat t.txt dir09/part-00000        		    
 
             </code>
@@ -211,11 +211,110 @@ public class StockAnalysis {
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
-
+Dummy Data:
 2024-01-01     GOOG        1450.00      1465.00     1445.00         1460.00    1200000
 2024-01-01     AAPL        300.00       305.00      295.00          304.00     2100000
 2024-01-02     GOOG        1460.00      1480.00     1450.00         1470.00    1100000 
 
+
+Real-Time Data:
+Date,         Channel Name,    Video Title,              Views,Total Subscribers
+2024-10-07,   Tech Guru,       New Tech Overview,        80000,1520000
+2024-10-07,   Music Beats,     Latest Pop Song,          155000,2550000
+2024-10-07,   Fitness Pro,     10 Min Abs Workout,        85000,820000
+2024-10-07,   Game Masters,    Game Walkthrough,          90000,1010000
+2024-10-07,   Tech Guru,       Smartphone Review,         75000,1530000
+2024-10-07,   Music Beats,     Indie Music Mix,          160000,2600000
+2024-10-07,   Fitness Pro,     20 Min Full Body Workout,  92000,830000
+2024-10-07,   Game Masters,    Live Stream Replay,       120000,1030000
+2024-10-07,   Tech Guru,       Laptop Review,            100000,1540000
+2024-10-07,   Music Beats,     Hip Hop Top Tracks,       170000,2660000
+2024-10-07,   Fitness Pro,     Morning Yoga Routine,     95000,840000
+2024-10-07,   Game Masters,    Speedrun Challenge,       140000,1050000
+2024-10-07,   Tech Guru,       AI Tech Demo,             115000,1560000
+2024-10-07,   Music Beats,     EDM Party Mix,            180000,2700000
+2024-10-07,   Fitness Pro,     Cardio Blast,             100000,850000
+2024-10-07,   Game Masters,    Top 10 Game Strategies,   150000,1080000
+2024-10-07,   Tech Guru,       Gadget Unboxing,          125000,1570000
+2024-10-07,   Music Beats,     Acoustic Live Session,    145000,2750000
+2024-10-07,   Fitness Pro,     HIIT Workout,             110000,860000
+2024-10-07,   Game Masters,    Multiplayer Tips,         135000,1090000
+2024-10-07,   Tech Guru,       Drone Test Flight,        105000,1580000
+2024-10-07,   Music Beats,     Classical Music Mix,      165000,2800000
+2024-10-07,   Fitness Pro,     Strength Training,        120000,870000
+2024-10-07,   Game Masters,    Battle Royale Strategy,   130000,1100000
+2024-10-07,   Tech Guru,       VR Headset Review,        110000,1590000
+2024-10-07,   Music Beats,     Chill Vibes Playlist,     150000,2850000
+2024-10-07,   Fitness Pro,     Flexibility Routine,      105000,880000
+2024-10-07,   Game Masters,    RPG Game Secrets,         145000,1110000
+2024-10-07,   Tech Guru,       Electric Car Review,      120000,1600000
+2024-10-07,   Music Beats,     Jazz Improvisation,       175000,2900000
+2024-10-07,   Fitness Pro,     Strength and Conditioning,130000,890000
+2024-10-07,   Game Masters,    Adventure Game Tips,      140000,1120000
+2024-10-07,   Tech Guru,       Camera Test Review,       125000,1610000
+2024-10-07,   Music Beats,     Live Piano Concert,       165000,2950000
+2024-10-07,   Fitness Pro,     CrossFit Challenge,       100000,900000
+2024-10-07,   Game Masters,    Survival Game Guide,      115000,1130000
+2024-10-07,   Tech Guru,       Smartwatch Review,        105000,1620000
+2024-10-07,   Music Beats,     Synthwave Mix,            140000,3000000
+2024-10-07,   Fitness Pro,     Pilates for Beginners,     95000,910000
+2024-10-07,   Game Masters,    MMORPG Tutorial,          120000,1140000
+2024-10-07,   Tech Guru,       Home Automation Setup,    130000,1630000
+2024-10-07,   Music Beats,     Top Rock Songs,           175000,3050000
+2024-10-07,   Fitness Pro,     Strength Circuit,          85000,920000
+2024-10-07,   Game Masters,    Indie Game Preview,        95000,1150000
+2024-10-07,   Tech Guru,       Best Gaming Laptop,       145000,1640000
+2024-10-07,   Music Beats,     Classical Symphony,       185000,3100000
+2024-10-07,   Fitness Pro,     Yoga for Flexibility,     110000,930000
+2024-10-07,   Game Masters,    Action RPG Guide,         155000,1160000
+2024-10-07,   Tech Guru,       Tablet Review,            120000,1650000
+2024-10-07,   Music Beats,     R&B Hits Playlist,        145000,3150000
+2024-10-07,   Fitness Pro,     Quick Morning Routine,     85000,940000
+2024-10-07,   Game Masters,    Puzzle Game Tips,         135000,1170000
+2024-10-07,   Tech Guru,       Best Smartphones 2024,    110000,1660000
+2024-10-07,   Music Beats,     Country Music Live,       160000,3200000
+2024-10-07,   Fitness Pro,     Daily Stretches,           90000,950000
+2024-10-07,   Game Masters,    Stealth Game Playthrough, 125000,1180000
+2024-10-07,   Tech Guru,       Electric Bike Review,     115000,1670000
+2024-10-07,   Music Beats,     Top EDM Hits,             140000,3250000
+2024-10-07,   Fitness Pro,     Post-Workout Recovery,     80000,960000
+2024-10-07,   Game Masters,    Horror Game Walkthrough,  120000,1190000
+2024-10-07,   Tech Guru,       Best Budget Laptop,       105000,1680000
+2024-10-07,   Music Beats,     Folk Music Mix,           135000,3300000
+2024-10-07,   Fitness Pro,     Cardio Kickboxing,         85000,970000
+2024-10-07,   Game Masters,    Open World Game Tips,     130000,1200000
+2024-10-07,   Tech Guru,       4K TV Review,             140000,1690000
+2024-10-07,   Music Beats,     Jazz Night Live,          160000,3350000
+2024-10-07,   Fitness Pro,     Bodyweight Workout,        95000,980000
+2024-10-07,   Game Masters,    Strategy Game Tactics,    115000,1210000
+2024-10-07,   Tech Guru,       Wireless Headphones Review,125000,1700000
+2024-10-07,   Music Beats,     Top Indie Artists,        155000,3400000
+2024-10-07,   Fitness Pro,     Strength Training at Home,100000,990000
+2024-10-07,   Game Masters,    First-Person Shooter Guide,145000,1220000
+2024-10-07,   Tech Guru,       Best Fitness Trackers,    105000,1710000
+2024-10-07,   Music Beats,     Live DJ Set,              170000,3450000
+2024-10-07,   Fitness Pro,     Yoga for Athletes,         95000,1000000
+2024-10-07,   Game Masters,    Turn-Based Strategy Guide,110000,1230000
+2024-10-07,   Tech Guru,       Smart Home Devices Review,130000,1720000
+2024-10-07,   Music Beats,     Electronic Chillout Mix,  145000,3500000
+2024-10-07,   Fitness Pro,     Full-Body Stretch Routine, 90000,1010000
+2024-10-07,   Game Masters,    Sandbox Game Exploration, 115000,1240000
+2024-10-07,   Tech Guru,       Noise-Canceling Earbuds, 135000,1730000
+2024-10-07,   Music Beats,     Pop Rock Essentials,    175000,3550000
+2024-10-07,   Fitness Pro,     Mindfulness Meditation, 100000,1020000
+2024-10-07,   Game Masters,    Co-op Game Review,      140000,1250000
+2024-10-07,   Tech Guru,       VR Gaming Headset,      145000,1740000
+2024-10-07,   Music Beats,     Acoustic Guitar Favorites,165000,3600000
+2024-10-07,   Fitness Pro,     Evening Yoga Routine,    90000,1030000
+2024-10-07,   Game Masters,    Platformer Game Tips,   135000,1260000
+2024-10-07,   Tech Guru,       Best Smartwatches,      120000,1750000
+2024-10-07,   Music Beats,     Soul Music Collection,  150000,3650000
+
+
+3)hadoop fs -put s.txt s.txt                                     //once type the same command to get file already exists as output
+4)hadoop jar stock.jar stock.stock s.txt dir11                   //Try giving different dir numbers for each programs 
+5)hadoop fs -cat dir11/part-00000    	                         //Make sure u give the same dir number wt u gave in above command.	    
+		    
             </code>
         </div>
     </div>
@@ -359,9 +458,9 @@ IP Address                    Timestamp of request                 HTTP request 
 96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433 
 96.7.1.14                     [24/Apr/2011:04:20:11 -0400]      "GET /cat.jpg HTTP/1.1"    200             12433
 		    
-3)hadoop fs -put wel.txt wel.txt                                      //once type the same command to get file already exists as output
-4)hadoop jar web.jar web.web wel.txt dir11                            //Try giving different dir numbers for each programs 
-5)hadoop fs -cat dir11/part-00000    	                             //Make sure u give the same dir number wt u gave in above command.	    
+3)hadoop fs -put wel.txt wel.txt                                //once type the same command to get file already exists as output
+4)hadoop jar web.jar web.web wel.txt dir11                     //Try giving different dir numbers for each programs 
+5)hadoop fs -cat dir11/part-00000    	                      //Make sure u give the same dir number wt u gave in above command.	    
             </code>
         </div>
     </div>
