@@ -221,9 +221,9 @@ IP Address                    Timestamp of request                 HTTP request 
 172.16.0.4                     [24/Apr/2011:04:24:04 -0400]      "GET /bird.jpg HTTP/1.1"   200             15000 
 172.16.0.5                     [24/Apr/2011:04:24:05 -0400]     
 
-3)hadoop fs -put wel.txt wel.txt                                //once type the same command to get file already exists as output
-4)hadoop jar web.jar web.web wel.txt dir11                     //Try giving different dir numbers for each programs 
-5)hadoop fs -cat dir11/part-00000    	                      //Make sure u give the same dir number wt u gave in above command.	    
+3) hadoop fs -put wel.txt wel.txt                        //once type the same command to get file already exists as output
+4) hadoop jar web.jar web.web wel.txt dir11              //Try giving different dir numbers for each programs 
+5) hadoop fs -cat dir11/part-r-00000    	         //Make sure u give the same dir number wt u gave in above command.	    
             </code>
         </div>
     </div>
@@ -310,107 +310,107 @@ Steps: //package name: temp , class name: temp
 2024 01 02 03	
 
 Real time Data:
-Year, Month, Day, Hour, Temperature
-2020, 01, 01, 00, 27.45
-2021, 01, 01, 01, 25.16
-2022, 01, 01, 02, 20.03
-2023, 01, 01, 03, 23.87
-2020, 01, 01, 04, 15.47
-2021, 01, 01, 05, 22.57
-2022, 01, 01, 06, 25.86
-2023, 01, 01, 07, 19.27
-2020, 01, 01, 08, 16.54
-2021, 01, 01, 09, 22.66
-2022, 01, 01, 10, 20.33
-2023, 01, 01, 11, 29.75
-2020, 01, 01, 12, 28.14
-2021, 01, 01, 13, 23.69
-2022, 01, 01, 14, 24.84
-2023, 01, 01, 15, 19.31
-2020, 01, 01, 16, 16.85
-2021, 01, 01, 17, 24.92
-2022, 01, 01, 18, 26.68
-2023, 01, 01, 19, 22.12
-2020, 01, 01, 20, 18.38
-2021, 01, 01, 21, 27.01
-2022, 01, 01, 22, 29.62
-2023, 01, 01, 23, 21.17
-2020, 01, 02, 00, 18.94
-2021, 01, 02, 01, 24.02
-2022, 01, 02, 02, 15.19
-2023, 01, 02, 03, 29.35
-2020, 01, 02, 04, 16.77
-2021, 01, 02, 05, 22.79
-2022, 01, 02, 06, 27.23
-2023, 01, 02, 07, 26.46
-2020, 01, 02, 08, 15.78
-2021, 01, 02, 09, 29.90
-2022, 01, 02, 10, 25.67
-2023, 01, 02, 11, 28.08
-2020, 01, 02, 12, 29.88
-2021, 01, 02, 13, 24.13
-2022, 01, 02, 14, 27.65
-2023, 01, 02, 15, 20.81
-2020, 01, 02, 16, 19.14
-2021, 01, 02, 17, 21.95
-2022, 01, 02, 18, 28.58
-2023, 01, 02, 19, 22.29
-2020, 01, 02, 20, 17.76
-2021, 01, 02, 21, 18.36
-2022, 01, 02, 22, 27.47
-2023, 01, 02, 23, 23.45
-2020, 01, 03, 00, 16.23
-2021, 01, 03, 01, 28.49
-2022, 01, 03, 02, 19.94
-2023, 01, 03, 03, 15.89
-2020, 01, 03, 04, 29.01
-2021, 01, 03, 05, 23.57
-2022, 01, 03, 06, 25.40
-2023, 01, 03, 07, 21.87
-2020, 01, 03, 08, 28.73
-2021, 01, 03, 09, 29.90
-2022, 01, 03, 10, 27.84
-2023, 01, 03, 11, 18.62
-2020, 01, 03, 12, 22.75
-2021, 01, 03, 13, 20.33
-2022, 01, 03, 14, 29.14
-2023, 01, 03, 15, 27.09
-2020, 01, 03, 16, 15.56
-2021, 01, 03, 17, 21.38
-2022, 01, 03, 18, 22.81
-2023, 01, 03, 19, 17.12
-2020, 01, 03, 20, 29.62
-2021, 01, 03, 21, 22.84
-2022, 01, 03, 22, 19.31
-2023, 01, 03, 23, 28.59
-2020, 01, 04, 00, 24.02
-2021, 01, 04, 01, 27.03
-2022, 01, 04, 02, 25.55
-2023, 01, 04, 03, 16.66
-2020, 01, 04, 04, 28.36
-2021, 01, 04, 05, 19.85
-2022, 01, 04, 06, 24.23
-2023, 01, 04, 07, 29.44
-2020, 01, 04, 08, 23.78
-2021, 01, 04, 09, 20.67
-2022, 01, 04, 10, 22.81
-2023, 01, 04, 11, 25.39
-2020, 01, 04, 12, 27.58
-2021, 01, 04, 13, 15.90
-2022, 01, 04, 14, 29.81
-2023, 01, 04, 15, 16.59
-2020, 01, 04, 16, 18.77
-2021, 01, 04, 17, 19.54
-2022, 01, 04, 18, 24.92
-2023, 01, 04, 19, 28.01
-2020, 01, 04, 20, 27.35
-2021, 01, 04, 21, 22.58
-2022, 01, 04, 22, 21.63
-2023, 01, 04, 23, 17.87
+Year,Month,Day,Temperature
+2020,01,01,27
+2021,01,01,25
+2022,01,01,20
+2023,01,01,23
+2020,01,01,15
+2021,01,01,22
+2022,01,01,25
+2023,01,01,19
+2020,01,01,16
+2021,01,01,22
+2022,01,01,20
+2023,01,01,29
+2020,01,01,28
+2021,01,01,23
+2022,01,01,24
+2023,01,01,19
+2020,01,01,16
+2021,01,01,24
+2022,01,01,26
+2023,01,01,22
+2020,01,01,18
+2021,01,01,27
+2022,01,01,29
+2023,01,01,21
+2020,01,02,18
+2021,01,02,24
+2022,01,02,15
+2023,01,02,29
+2020,01,02,16
+2021,01,02,22
+2022,01,02,27
+2023,01,02,26
+2020,01,02,15
+2021,01,02,29
+2022,01,02,25
+2023,01,02,28
+2020,01,02,29
+2021,01,02,24
+2022,01,02,27
+2023,01,02,20
+2020,01,02,19
+2021,01,02,21
+2022,01,02,28
+2023,01,02,22
+2020,01,02,17
+2021,01,02,18
+2022,01,02,27
+2023,01,02,23
+2020,01,03,16
+2021,01,03,28
+2022,01,03,19
+2023,01,03,15
+2020,01,03,29
+2021,01,03,23
+2022,01,03,25
+2023,01,03,21
+2020,01,03,28
+2021,01,03,29
+2022,01,03,27
+2023,01,03,18
+2020,01,03,22
+2021,01,03,20
+2022,01,03,29
+2023,01,03,27
+2020,01,03,15
+2021,01,03,21
+2022,01,03,22
+2023,01,03,17
+2020,01,03,29
+2021,01,03,22
+2022,01,03,19
+2023,01,03,28
+2020,01,04,24
+2021,01,04,27
+2022,01,04,25
+2023,01,04,16
+2020,01,04,28
+2021,01,04,19
+2022,01,04,24
+2023,01,04,29
+2020,01,04,23
+2021,01,04,20
+2022,01,04,22
+2023,01,04,25
+2020,01,04,27
+2021,01,04,15
+2022,01,04,29
+2023,01,04,16
+2020,01,04,18
+2021,01,04,19
+2022,01,04,24
+2023,01,04,28
+2020,01,04,27
+2021,01,04,22
+2022,01,04,21
+2023,01,04,17
 	    
-3)hadoop fs -put t.txt t.txt                                    //once type the same command to get file already exists as output
-4)hadoop jar temp.jar temp.temp t.txt dir09                    //Try giving different dir numbers for each programs
-5)hadoop fs -cat t.txt dir09/part-00000        		    
+3) hadoop fs -put t.txt t.txt                              //once type the same command to get file already exists as output
+4) hadoop jar temp.jar temp.temp t.txt dir09              //Try giving different dir numbers for each programs
+5) hadoop fs -cat t.txt dir09/part-r-00000        		    
 
             </code>
         </div>
@@ -582,9 +582,9 @@ Date        Ticker   Open     High     Low      Close    Volume
 	    
 
 		    
-3)hadoop fs -put s.txt s.txt                                     //once type the same command to get file already exists as output
-4)hadoop jar stock.jar stock.stock s.txt dir11                   //Try giving different dir numbers for each programs 
-5)hadoop fs -cat dir11/part-00000    	                         //Make sure u give the same dir number wt u gave in above command.	    
+3) hadoop fs -put s.txt s.txt                                //once type the same command to get file already exists as output
+4) hadoop jar stock.jar stock.stock s.txt dir11              //Try giving different dir numbers for each programs 
+5) hadoop fs -cat dir11/part-r-00000    	             //Make sure u give the same dir number wt u gave in above command.	    
 		    
             </code>
         </div>
@@ -667,78 +667,104 @@ public class reals {
 		    
 		    
 Real-Time Data:
-Date       Channel_Name         Video_Title          Time Likes Comments Views      
-2024-10-03 T-Series             Live_Piano           35:23  9700 1243 162354
-2024-10-05 Yoga_With_Adriene    Yoga_Athletes        14:35  4200  302 104321
-2024-10-07 TechBurner           Puzzle_Tips          18:22  6700  724 139472
-2024-10-05 GeekyRanjit          Electric_Scooter     13:10  5700  398 127593
-2024-10-06 BB_Ki_Vines          Indie_Artists        58:17  7600 1102 148361
-2024-10-03 Fit_Tuber            Pilates_Beginners    12:03  3900  312  97384
-2024-10-06 Slayy_Point          Smartwatch_Review    14:56  4600  371 111243
-2024-10-06 Coke_Studio_India    Jazz_Live            35:10  9400 1263 174982
-2024-10-05 Flying_Beast         Full_Stretch         18:45  3500  267 100294
-2024-10-06 Mortal               Adventure_Tips       22:03  7500  684 135872
-2024-10-07 Emiway_Bantai        EDM_Tracks           41:48  9100 1352 169543
-2024-10-07 Yoga_With_Adriene    Mindfulness          16:34  3100  235 103592
-2024-10-06 TechBurner           Co-op_Review         17:34  6700  598 138472
-2024-10-07 T-Series             Indie_Tracks         36:12 10600 1420 187431
-2024-10-05 GeekyRanjit          Headphones_Review    11:47  5500  387 122348
-2024-10-07 Emiway_Bantai        Acoustic_Performance 47:21  7200 1092 143872
-2024-10-04 BB_Ki_Vines          Soul_Collection      52:10  7900 1204 154923
-2024-10-05 Fit_Tuber            Bodyweight_Workout   15:12  4500  389 112834
-2024-10-03 TechBurner           Strategy_Guide       21:03  7100  653 125981
-2024-10-07 Technical_Guruji     Smart_Devices        13:45  6100  453 129432
-2024-10-06 BB_Ki_Vines          DJ_Set               23:12  9600 1487 178243
-2024-10-05 Emiway_Bantai        Rock_Anthems         54:57  8200 1278 167432
-2024-10-07 Flying_Beast         Strength_Home        16:48  4200  365 109812
-2024-10-05 Total_Gaming         MMORPG_Tutorial      19:27  7200  698 138765
-2024-10-07 Technical_Guruji     4K_Review            14:18  6400  472 149321
-2024-10-06 Coke_Studio_India    Country_Mix          30:45  8700 1190 174543
-2024-10-07 Fit_Tuber            Daily_Stretch        17:23  3200  243 100582
-2024-10-06 Slayy_Point          Sandbox_Exploration  44:12  8000 1320 167530
-2024-10-05 GeekyRanjit          Gadget_Tips          16:15  4900  278 115482
-2024-10-04 BB_Ki_Vines          Classic_Rock         29:58  9000 1300 169384
-2024-10-06 Flying_Beast         HIIT_Workout         22:30  5600  492 123842
-2024-10-03 Mortal               RPG_Guide            18:58  6100  427 129903
-2024-10-05 Emiway_Bantai        Festival_Highlights  39:45  7100  593 137528
-2024-10-07 TechBurner           Game_Strategies      25:34  8000  523 143927
-2024-10-06 Coke_Studio_India    Retro_Music          57:50  9300 1482 167283
-2024-10-05 Technical_Guruji     Gadget_Review        14:25  4600  391 111847
-2024-10-07 T-Series             Pop_Music            30:12  6700  749 136413
-2024-10-05 Fit_Tuber            Cardio_Workout       15:45  3500  284 100275
-2024-10-06 Mortal               Game_Analysis        19:50  5400  458 118942
-2024-10-03 BB_Ki_Vines          Chill_Vibes          32:22  7100  602 135749
-2024-10-04 Yoga_With_Adriene    Evening_Yoga         40:15  5200  431 114812
-2024-10-05 Flying_Beast         Quick_Fitness        11:56  4500  279 113142
-2024-10-03 Emiway_Bantai        Music_Review         26:13  5400  402 115932
-2024-10-07 Technical_Guruji     Future_Technology    38:05  7800  565 128731
-2024-10-06 Coke_Studio_India    Pop_Hits             23:15  8900 1472 159842
-2024-10-05 Mortal               Battle_Tips          15:29  6700  521 140329
-2024-10-06 BB_Ki_Vines          Live_Concert         57:38  9400 1294 168547
-2024-10-05 TechBurner           Top_5_Games          20:03  7300  645 137023
-2024-10-03 Flying_Beast         Cardio_Blast         17:54  6100  598 132581
-2024-10-06 Emiway_Bantai        Acoustic_Cover       24:22  7600 1201 144233
-2024-10-07 Fit_Tuber            Total_Body           31:19  5400  402 125187
-2024-10-06 Coke_Studio_India    Instrumental         36:40  8100 1369 158475
-2024-10-05 Yoga_With_Adriene    Flexibility          18:08  3900  294 102456
-2024-10-07 TechBurner           Game_Updates         19:19  6500  411 136492
-2024-10-03 BB_Ki_Vines          Relaxation           20:56  4700  267 118764
-2024-10-06 Mortal               Strategy_Tips        25:03  7400 620  135782
-2024-10-05 Fit_Tuber            Morning_Yoga         12:44  4500 356  100856
-2024-10-07 Emiway_Bantai        Jam_Session          22:18  8300 1450 178194
-2024-10-03 Technical_Guruji     Gadget_Hacks         16:55  5200 420  111843
-2024-10-06 BB_Ki_Vines          Singer_Songwriter    43:35  9800 1200 158372
-2024-10-05 Flying_Beast         Core_Training        13:13  3700 285  101294
-2024-10-06 Mortal               Combat_Tactics       14:24  4900 398  117293
-2024-10-07 Yoga_With_Adriene    Functional_Training  30:14  6600 572  128934
-2024-10-05 Emiway_Bantai        Vocal_Performance    29:30  7800 764  133487
-2024-10-06 BB_Ki_Vines          Electronic_Beats     40:45  9100 1354 163921
-2024-10-07 Technical_Guruji     AI_Technology        18:15  6200 421  129301
-2024-10-06 Coke_Studio_India    Classical_Music      57:49  8400 1392 174321
+Date       Channel_Name     Video_Title          Time    Likes Comments  Views      
+2024-10-01 PewDiePie        React_Memes          12:34   15000  2300    450000  
+2024-10-02 Dude_Perfect     Trick_Shots          15:22   23000  3400    600000  
+2024-10-03 MrBeast         Last_to_Leave       22:11   50000  5400   1200000  
+2024-10-04 T-Series        Bollywood_Hits       30:45  120000  5000   1500000  
+2024-10-05 Markiplier       Scary_Challenge      18:20   30000  2100    800000  
+2024-10-06 James_C         Makeup_Tutorial      25:12   18000  2900    600000  
+2024-10-07 Try_Guys        Taste_Test           14:40   25000  1800    450000  
+2024-10-08 Fit_Blender      Full_Workout         35:10   20000  1500    300000  
+2024-10-09 Jenna_M         DIY_Projects         19:25   16000  2800    700000  
+2024-10-10 Vanoss           Gaming_Moments      27:13   21000  3600    900000  
+2024-10-11 Rosanna          Baking_Challenge     22:30   17000  2500    550000  
+2024-10-12 David_D         Surprise_Pranks      15:00   40000  4000    950000  
+2024-10-13 Good_Myth       Food_Hacks           32:55   22000  1900    800000  
+2024-10-14 Mr_Mobile       Phone_Reviews       29:15   13000  1700    400000  
+2024-10-15 Safiya           Beauty_Hacks         16:45   24000  3300    750000  
+2024-10-16 H3_Podcast      Interview            40:05   19000  2400    500000  
+2024-10-17 Unbox           Unboxing_Gadgets     14:10   30000  3500    880000  
+2024-10-18 Cocomelon       Nursery_Rhymes      45:00   80000 12000   2000000  
+2024-10-19 Smosh            Comedy_Skits         28:35   21000  2800    620000  
+2024-10-20 Mark_R          Science_Experiments  24:55   28000  3900    850000  
+2024-10-21 Dude_P          Bottle_Flip          20:12   17000  2200    520000  
+2024-10-22 PewDie          Gaming_Highlights    33:00   26000  3400    780000  
+2024-10-23 Jenna_M         Pet_Tips             11:34   12000  1500    300000  
+2024-10-24 David_D         Birthday_Surprise    18:22   37000  4100  1000000  
+2024-10-25 James_C         Cooking_With_Kids    16:00   23000  2900    650000  
+2024-10-26 MrBeast        24_Hour_Challenge    28:40   45000  5000   1300000  
+2024-10-27 Dude_Perfect    Epic_Dunks           22:30   21000  3200    710000  
+2024-10-28 Try_Guys       DIY_Clothing         19:15   19000  1500    500000  
+2024-10-29 Vanoss          Funny_Moments       31:50   28000  3700    820000  
+2024-10-30 T-Series        New_Song             25:45   30000  2800    900000  
+2024-10-31 Jenna_M        Travel_Vlog          12:45   15000  2100    450000  
+2024-11-01 Rosanna         Kitchen_Tips         20:20   17000  1500    520000  
+2024-11-02 Good_Myth      Life_Hacks           14:11   22000  3000    600000  
+2024-11-03 H3_Podcast     Current_Events       38:30   19000  2200    510000  
+2024-11-04 Safiya         DIY_Beauty           27:30   24000  2500    750000  
+2024-11-05 Mr_Mobile      Tech_News            15:15   13000  1800    400000  
+2024-11-06 Unbox          Latest_Gadgets       17:47   25000  3600    720000  
+2024-11-07 Markiplier      Game_Playthrough      30:10   30000  4000    950000  
+2024-11-08 PewDiePie      Meme_Review          23:05   28000  4500    860000  
+2024-11-09 Jenna_M        Fitness_Challenges    26:15   19000  3200    590000  
+2024-11-10 David_D        Reaction_Videos      20:40   37000  4000  1000000  
+2024-11-11 MrBeast        Philanthropy         29:55   48000  6200   1300000  
+2024-11-12 Cocomelon      Baby_Songs           45:00   90000 13000   2100000  
+2024-11-13 Try_Guys       Try_Not_To_Laugh    17:20   16000  2400    540000  
+2024-11-14 Vanoss         Epic_Fails          31:30   23000  3100    790000  
+2024-11-15 Good_Myth      Snack_Recipes        19:25   22000  1900    800000  
+2024-11-16 James_C        Home_Improvement     15:10   17000  2900    600000  
+2024-11-17 Safiya        Fashion_Hauls        28:40   24000  3300    850000  
+2024-11-18 H3_Podcast     True_Crime          38:00   19000  2400    500000  
+2024-11-19 PewDiePie      100_Layer_Challenge  24:15   28000  4500    860000  
+2024-11-20 Dude_Perfect    Crazy_Games         20:45   25000  3200    730000  
+2024-11-21 Markiplier      Funniest_Moments    22:22   30000  3100    900000  
+2024-11-22 Jenna_M        Shopping_Haul        18:30   15000  2700    460000  
+2024-11-23 David_D        Reaction_Videos      20:40   37000  4000  1000000  
+2024-11-24 Unbox          Gadget_Hacks         15:05   23000  1900    600000  
+2024-11-25 Try_Guys       Mythbusters          19:18   16000  2800    650000  
+2024-11-26 Cocomelon      Family_Fun           30:00   90000 12000   2000000  
+2024-11-27 MrBeast        Survival_Challenge   27:10   48000  5000   1400000  
+2024-11-28 Vanoss         Game_Night           29:50   21000  3200    780000  
+2024-11-29 Safiya         Holiday_Treats       20:10   24000  2700    700000  
+2024-11-30 Good_Myth      Pet_Hacks            14:50   22000  1900    590000  
+2024-12-01 H3_Podcast     Review_Series        38:00   19000  2100    520000  
+2024-12-02 James_C        Skill_Building       15:55   17000  2300    640000  
+2024-12-03 Try_Guys       Taste_Test           20:45   25000  2200    670000  
+2024-12-04 PewDiePie      Game_Room            22:12   28000  3200    830000  
+2024-12-05 Jenna_M        Home_Decor           26:35   15000  1800    490000  
+2024-12-06 Markiplier      Scary_Stories        18:20   30000  3500    720000  
+2024-12-07 David_D        Creative_Ideas       20:15   37000  4000  1100000  
+2024-12-08 Dude_Perfect    Skills_Challenge     15:30   23000  2600    600000  
+2024-12-09 MrBeast        Charity_Event        40:12   48000  5400   1200000  
+2024-12-10 T-Series        Latest_Single        30:45  120000  5000   1500000
+2024-10-11 Rosanna          Baking_Challenge     22:30   17000  2500    550000  
+2024-10-12 David_D         Surprise_Pranks      15:00   40000  4000    950000  
+2024-10-13 Good_Myth       Food_Hacks           32:55   22000  1900    800000  
+2024-10-14 Mr_Mobile       Phone_Reviews       29:15   13000  1700    400000  
+2024-10-15 Safiya           Beauty_Hacks         16:45   24000  3300    750000  
+2024-10-16 H3_Podcast      Interview            40:05   19000  2400    500000  
+2024-10-17 Unbox           Unboxing_Gadgets     14:10   30000  3500    880000  
+2024-10-18 Cocomelon       Nursery_Rhymes      45:00   80000 12000   2000000  
+2024-10-19 Smosh            Comedy_Skits         28:35   21000  2800    620000  
+2024-10-20 Mark_R          Science_Experiments  24:55   28000  3900    850000  
+2024-10-21 Dude_P          Bottle_Flip          20:12   17000  2200    520000  
+2024-10-22 PewDie          Gaming_Highlights    33:00   26000  3400    780000  
+2024-10-23 Jenna_M         Pet_Tips             11:34   12000  1500    300000  
+2024-10-24 David_D         Birthday_Surprise    18:22   37000  4100  1000000  
+2024-10-25 James_C         Cooking_With_Kids    16:00   23000  2900    650000  
+2024-10-26 MrBeast        24_Hour_Challenge    28:40   45000  5000   1300000  
+2024-10-27 Dude_Perfect    Epic_Dunks           22:30   21000  3200    710000  
+2024-10-28 Try_Guys       DIY_Clothing         19:15   19000  1500    500000  
+2024-10-29 Vanoss          Funny_Moments       31:50   28000  3700    820000  
+2024-10-30 T-Series        New_Song             25:45   30000  2800    900000  
+2024-10-31 Jenna_M        Travel_Vlog          12:45   15000  2100    450000 		    
+
 
 3)hadoop fs -put yt.txt yt.txt                                     //once type the same command to get file already exists as output
 4)hadoop jar reals.jar reals.reals yt.txt dir11                   //Try giving different dir numbers for each programs 
-5)hadoop fs -cat dir11/part-00000    	                         //Make sure u give the same dir number wt u gave in above command.	    	    
+5)hadoop fs -cat dir11/part-r-00000    	                         //Make sure u give the same dir number wt u gave in above command.	    	    
             </code>
         </div>
     </div>
